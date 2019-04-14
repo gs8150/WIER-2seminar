@@ -24,8 +24,8 @@ HTMLsource = ""
 # use selenium and bs to build html source
 # TODO selenium? or just load local file -> pageContent = open('Golf8.html', 'r').read()
 try:
-    driver.get(overstockA)
-    # driver.get(overstockB)
+    # driver.get(overstockA)
+    driver.get(overstockB)
     # driver.get(rtvsloA)
     HTMLsource = str(BeautifulSoup(driver.page_source, 'html.parser'))
 
@@ -36,7 +36,7 @@ finally:
     driver.quit()
 
 # extract data using regular expressions
-##output_regex = regularExpressionExtraction(HTMLsource, pageType)
+output_regex = regularExpressionExtraction(HTMLsource, pageType)
 
 # extract data using XPath
 output_XPath = XPathExtraction(HTMLsource, pageType)
@@ -45,6 +45,6 @@ output_XPath = XPathExtraction(HTMLsource, pageType)
 output_roadRunner = RoadRunnerExtraction(HTMLsource, pageType)
 
 # done
-##print(output_regex)
+print(output_regex)
 print(output_XPath)
 ##print(output_roadRunner)
