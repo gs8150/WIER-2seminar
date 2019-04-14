@@ -14,12 +14,11 @@ chrome_options.add_argument('--disable-browser-side-navigation')
 chrome_options.headless = True
 driver = webdriver.Chrome(options=chrome_options)
 driver.set_page_load_timeout(20)  # wait 20 seconds, move to next url after timeout
-# wait 3 secs for web to load
-driver.implicitly_wait(3)
 
 pageType = 0    # 0 -> overstock, 1 -> rtvslo.si, 2 -> custom
 overstockA = "file:///C:/Users/susni/PycharmProjects/WIER-2seminar/implementation/data/overstock.com/jewelry01.html"
 overstockB = "file:///C:/Users/susni/PycharmProjects/WIER-2seminar/implementation/data/overstock.com/jewelry02.html"
+rtvsloA = "file:///C:/Users/susni/PycharmProjects/WIER-2seminar/implementation/data/rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html"
 HTMLsource = ""
 
 # use selenium and bs to build html source
@@ -27,6 +26,7 @@ HTMLsource = ""
 try:
     driver.get(overstockA)
     # driver.get(overstockB)
+    # driver.get(rtvsloA)
     HTMLsource = str(BeautifulSoup(driver.page_source, 'html.parser'))
 
 except (WebDriverException, TimeoutException) as error:
@@ -36,7 +36,7 @@ finally:
     driver.quit()
 
 # extract data using regular expressions
-output_regex = regularExpressionExtraction(HTMLsource, pageType)
+##output_regex = regularExpressionExtraction(HTMLsource, pageType)
 
 # extract data using XPath
 output_XPath = XPathExtraction(HTMLsource, pageType)
@@ -45,6 +45,6 @@ output_XPath = XPathExtraction(HTMLsource, pageType)
 output_roadRunner = RoadRunnerExtraction(HTMLsource, pageType)
 
 # done
-print(output_regex)
+##print(output_regex)
 print(output_XPath)
-print(output_roadRunner)
+##print(output_roadRunner)
