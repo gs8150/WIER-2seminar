@@ -21,7 +21,6 @@ def regularExpressionExtraction(input, pageType):
 
     matches = re.finditer(regex, input)
     for match in matches:
-
         # save retrieved data into dictionary
         item = {}
 

@@ -1,39 +1,22 @@
-# TODO main implementation
-from methods.RoadRunnerExtraction import RoadRunnerExtraction
-from methods.XPathExtraction import XPathExtraction
-from methods.regularExpressionExtraction import regularExpressionExtraction
-from selenium.common.exceptions import WebDriverException, TimeoutException
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
+from RoadRunnerExtraction import RoadRunnerExtraction
+from XPathExtraction import XPathExtraction
+from regularExpressionExtraction import regularExpressionExtraction
 from bs4 import BeautifulSoup
 
-
-# selenium driver configuration
-chrome_options = Options()
-chrome_options.add_argument('--disable-browser-side-navigation')
-chrome_options.headless = True
-driver = webdriver.Chrome(options=chrome_options)
-driver.set_page_load_timeout(20)  # wait 20 seconds, move to next url after timeout
-
-pageType = 0    # 0 -> overstock, 1 -> rtvslo.si, 2 -> custom
-overstockA = "file:///C:/Users/susni/PycharmProjects/WIER-2seminar/implementation/data/overstock.com/jewelry01.html"
-overstockB = "file:///C:/Users/susni/PycharmProjects/WIER-2seminar/implementation/data/overstock.com/jewelry02.html"
-rtvsloA = "file:///C:/Users/susni/PycharmProjects/WIER-2seminar/implementation/data/rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html"
+pageType = 1    # 0 -> overstock, 1 -> rtvslo.si, 2 -> custom
 HTMLsource = ""
 
-# use selenium and bs to build html source
-# TODO selenium? or just load local file -> pageContent = open('Golf8.html', 'r').read()
 try:
-    # driver.get(overstockA)
-    driver.get(overstockB)
-    # driver.get(rtvsloA)
-    HTMLsource = str(BeautifulSoup(driver.page_source, 'html.parser'))
-
-except (WebDriverException, TimeoutException) as error:
+    overstockA = 'data/overstock.com/jewelry01.html'
+    overstockB = 'data/overstock.com/jewelry02.html'
+    rtvsloA = 'data/rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html'
+    rtvsloB = 'data/rtvslo.si/Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'
+    with open(rtvsloA, "r") as f:
+        page = f.read()
+    HTMLsource = str(BeautifulSoup(page, 'html.parser'))
+except Exception as error:
     print(error)
     exit(1)
-finally:
-    driver.quit()
 
 # extract data using regular expressions
 output_regex = regularExpressionExtraction(HTMLsource, pageType)

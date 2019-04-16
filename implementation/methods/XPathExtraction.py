@@ -7,10 +7,6 @@ def XPathExtraction(input, pageType):
     # Form an XML tree using lxml library
     tree = html.fromstring(input)
 
-    # titles = tree.xpath('//tr[contains(@bgcolor, "#ffffff") or contains(@bgcolor, "#dddddd")]/td[2]/a/b/text()')
-    # for title in titles:
-    #    print(title)
-
     data = {}
     id = 1
 
@@ -35,6 +31,24 @@ def XPathExtraction(input, pageType):
             item['content'] = content
             data[id] = item
             id += 1
+    elif pageType == 1:
+        rootObject = tree.xpath('//div[@class="news-container blue article-old article-type-1"]/div')[0]
+        author = rootObject.xpath('string(div[@class="article-meta"]/div[@class="author"]/div/text())')
+        publishTime = rootObject.xpath('string(div[@class="article-meta"]/div[@class="publish-meta"]/text())')
+        title = rootObject.xpath('string(header/h1/text())')
+        subTitle = rootObject.xpath('string(header/div[@class="subtitle"]/text())')
+        lead = rootObject.xpath('string(header/p/text())')
+        # content = hmmm... how the f**k extract that?
+
+        item = {}
+        item['Title'] = title
+        item['SubTitle'] = subTitle
+        item['Lead'] = lead
+        item['Author'] = author
+        item['PublishTime'] = publishTime
+        # item['content'] = content
+        data[id] = item
+        id += 1
 
     elif pageType == 2:                       # custom
         return "To be implemented"
