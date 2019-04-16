@@ -32,7 +32,8 @@ def XPathExtraction(input, pageType):
             data[id] = item
             id += 1
     elif pageType == 1:
-        rootObject = tree.xpath('//div[@class="news-container blue article-old article-type-1"]/div')[0]
+        # rootObject = tree.xpath('//div[@class="news-container blue article-old article-type-1"]/div')[0]
+        rootObject = tree.xpath('//div[contains(@class, "news-container")]/div')[0]
         author = rootObject.xpath('string(div[@class="article-meta"]/div[@class="author"]/div/text())')
         publishTime = rootObject.xpath('string(div[@class="article-meta"]/div[@class="publish-meta"]/text())')
         title = rootObject.xpath('string(header/h1/text())')
@@ -67,4 +68,4 @@ def XPathExtraction(input, pageType):
         return "Unknown pageType"
 
     # return json dump with pretty print + sorted entries
-    return json.dumps(data, indent=4, sort_keys=True)
+    return json.dumps(data, indent=4, sort_keys=True, ensure_ascii=False)

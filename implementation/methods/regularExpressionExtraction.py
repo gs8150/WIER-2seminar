@@ -64,4 +64,4 @@ def regularExpressionExtraction(input, pageType):
         id += 1
 
     # return json dump with pretty print + sorted entries
-    return json.dumps(data, indent=4, sort_keys=True)
+    return json.dumps(data, indent=4, sort_keys=True, ensure_ascii=False)
