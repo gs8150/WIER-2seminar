@@ -1,6 +1,6 @@
 from lxml import html
 import json
-
+import re
 
 # TODO implementation of data extraction using XPath
 def XPathExtraction(input, pageType):
@@ -57,7 +57,7 @@ def XPathExtraction(input, pageType):
         item['SubTitle'] = subTitle
         item['Lead'] = lead
         item['Author'] = author
-        item['PublishTime'] = publishTime
+        item['PublishTime'] = re.sub('[^A-Za-z0-9.: ]+', '', publishTime)   # removes escape characters from datetime
         item['content'] = content
         data[id] = item
         id += 1
