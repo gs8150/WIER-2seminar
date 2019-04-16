@@ -38,7 +38,18 @@ def XPathExtraction(input, pageType):
         title = rootObject.xpath('string(header/h1/text())')
         subTitle = rootObject.xpath('string(header/div[@class="subtitle"]/text())')
         lead = rootObject.xpath('string(header/p/text())')
-        # content = hmmm... how the f**k extract that?
+        contentList = rootObject.xpath('div[@class="article-body"]/article[@class="article"]//p | '
+                                   'div[@class="article-body"]/article[@class="article"]//strong')
+
+
+        content = ""
+
+        for p in contentList:
+            if p.text is not None:
+                content += '\n' + p.text
+
+                if p.tail is not None:
+                    content += '\n' +  p.tail
 
         item = {}
         item['Title'] = title
@@ -46,7 +57,7 @@ def XPathExtraction(input, pageType):
         item['Lead'] = lead
         item['Author'] = author
         item['PublishTime'] = publishTime
-        # item['content'] = content
+        item['content'] = content
         data[id] = item
         id += 1
 
