@@ -6,12 +6,14 @@ import json
 def regularExpressionExtraction(input, pageType):
     data = {}
     id = 1
-    # overstock regex extraction
-    if pageType == 0:
-        regex = r'<b>([0-9].+)<\/b>.*\n.*\n.*<s>([\$0-9,.]+).*\n.*<b>([\$0-9.]+).*\n.*>([\$0-9.,]+)\s.([0-9]+.).*\n.*\n.*<span class=\"normal\">(.*|.*\n.*\n.*|.*\n.*\n.*\n.*)<br/><a'
-    elif pageType == 1:
+
+    if pageType == 0:               # overstock regex extraction
+        regex = r'<b>([0-9].+)<\/b>.*\n.*\n.*<s>([\$0-9,.]+).*\n.*<b>([\$0-9.]+).*\n.*>([\$0-9.,]+)\s.([0-9]+.)' \
+                r'.*\n.*\n.*<span class=\"normal\">(.*|.*\n.*\n.*|.*\n.*\n.*\n.*)<br/><a'
+    elif pageType == 1:             # rtvslo.si regex extraction
         # single full match no context field
-        regex = r'<h1>(.*)</h1>[\s\S]+<div class=\"subtitle\">(.*)</div>[\s\S]+<p class=\"lead\">(.*)</p>[\s\S]+<div class=\"author-name\">(.*)</div>[\s\S]+\"publish-meta\">[\n\W]+(.*)<br/>'
+        regex = r'<h1>(.*)</h1>[\s\S]+<div class=\"subtitle\">(.*)</div>[\s\S]+<p class=\"lead\">(.*)</p>[\s\S]+' \
+                r'<div class=\"author-name\">(.*)</div>[\s\S]+\"publish-meta\">[\n\W]+(.*)<br/>'
         # mulltimatch
         # regex = r'<h1>(.*)</h1>|<div class=\"subtitle\">(.*)</div>|<p class=\"lead\">(.*)</p>|<div class=\"author-name\">(.*)</div>|\"publish-meta\">[\n\W]+(.*)<br/>|<p class=\"Body\">([\w\-,.\s–čšž\/ŠČŽ\"]+)<\/p>|<strong>([\w\-,.\s–čšž\/ŠČŽ\"<>]+)<\/p>'
     elif pageType == 2:
@@ -45,14 +47,20 @@ def regularExpressionExtraction(input, pageType):
             lead = match.group(3)               # lead
             author = match.group(4)             # author
             publishTime = match.group(5)        # publishTime
-            #content = match.group(6)            # content
+
+            # TODO implement rtvslo.si regex content
+            regexContent = r'<p class=\"Body\">([\w\-,.\s–čšž\/ŠČŽ\"]+)<\/p>'
+            content = ''                        # content
+            matchContentObjects = re.finditer(regexContent, input)
+            for contentObject in matchContentObjects:
+                content += contentObject.group(1)
 
             item['Title'] = title
             item['SubTitle'] = subTitle
             item['Lead'] = lead
             item['Author'] = author
             item['PublishTime'] = publishTime
-            #item['content'] = content
+            item['content'] = content
 
         elif pageType == 2:                       # custom
             return "To be implemented"

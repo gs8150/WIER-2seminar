@@ -2,7 +2,7 @@ from lxml import html
 import json
 import re
 
-# TODO implementation of data extraction using XPath
+
 def XPathExtraction(input, pageType):
     # Form an XML tree using lxml library
     tree = html.fromstring(input)
@@ -40,8 +40,7 @@ def XPathExtraction(input, pageType):
         subTitle = rootObject.xpath('string(header/div[@class="subtitle"]/text())')
         lead = rootObject.xpath('string(header/p/text())')
         contentList = rootObject.xpath('div[@class="article-body"]/article[@class="article"]//p | '
-                                   'div[@class="article-body"]/article[@class="article"]//strong')
-
+                                       'div[@class="article-body"]/article[@class="article"]//strong')
 
         content = ""
 
@@ -50,7 +49,7 @@ def XPathExtraction(input, pageType):
                 content += '\n' + p.text
 
                 if p.tail is not None:
-                    content += '\n' +  p.tail
+                    content += '\n' + p.tail
 
         item = {}
         item['Title'] = title

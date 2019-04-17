@@ -3,16 +3,31 @@ from XPathExtraction import XPathExtraction
 from regularExpressionExtraction import regularExpressionExtraction
 from bs4 import BeautifulSoup
 
-pageType = 1    # 0 -> overstock, 1 -> rtvslo.si, 2 -> custom
-HTMLsource = ""
+
+overstockA = 'data/overstock.com/jewelry01.html'
+overstockB = 'data/overstock.com/jewelry02.html'
+rtvsloA = 'data/rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html'
+rtvsloB = 'data/rtvslo.si/Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'
+
+# to change other page, change this variable only
+pageSource = overstockA  # rvtsloA, rtvsloB, overstockA, overstockB, customA, customB
+# -------------------------------------------------
 
 try:
-    overstockA = 'data/overstock.com/jewelry01.html'
-    overstockB = 'data/overstock.com/jewelry02.html'
-    rtvsloA = 'data/rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html'
-    rtvsloB = 'data/rtvslo.si/Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'
-    with open(rtvsloA, "r", encoding="utf8") as f:
-        page = f.read()
+    # pageType calculation
+    if 'overstock' in pageSource:
+        pageType = 0
+    elif 'rtvslo' in pageSource:
+        pageType = 1
+    elif 'custom' in pageSource:
+        pageType = 2
+    else:
+        print('Invalid page source!')
+        exit(1)
+
+    # obtain HTML code
+    htmlObject = open(pageSource, 'r', encoding='utf-8') if pageType == 1 else open(pageSource, 'r')
+    page = htmlObject.read()
     HTMLsource = str(BeautifulSoup(page, 'html.parser'))
 except Exception as error:
     print(error)
