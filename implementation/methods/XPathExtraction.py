@@ -62,7 +62,29 @@ def XPathExtraction(input, pageType):
         id += 1
 
     elif pageType == 2:                       # custom
-        return "To be implemented"
+        objects = tree.xpath('//div[@class="item-container"]')
+        for obj in objects:
+            dataInfo = obj.xpath('div[@class="item-info"]')
+
+            item = {}
+            title = dataInfo[0].xpath('string(a[@class="item-title"]/text())')
+            rating = dataInfo[0].xpath('string(div[@class="item-branding"]/a[@class="item-rating"]/@title)')
+            promo = dataInfo[0].xpath('string(p[@class="item-promo"]/text())')
+            priceCurrent = dataInfo[0].xpath('string(div[@class="item-action"]/ul/li[@class="price-current"])')
+            offers = dataInfo[0].xpath('string(div[@class="item-action"]/ul/li[@class="price-current"]/a/text())')
+            priceWas = dataInfo[0].xpath('string(div[@class="item-action"]/ul/li[@class="price-was"]/text())')
+            priceSave = dataInfo[0].xpath('string(div[@class="item-action"]/ul/li[@class="price-save"]/span[@class="price-save-percent"]/text())')
+
+            item['Title'] = title
+            item['Rating'] = re.sub('[^0-9]+', '', rating)
+            item['Promo'] = promo
+            item["Price"] = re.search('\$[0-9.,]+', priceCurrent)[0] if re.search('\$[0-9.,]+', priceCurrent) is not None else ""
+            item["Offers"] = re.sub('[^0-9]+', '', offers)
+            item["OldPrice"] = re.search('\$[0-9.,]+', priceWas)[0] if re.search('\$[0-9.,]+', priceWas) is not None else ""
+            item["Save"] = priceSave
+
+            data[id] = item
+            id += 1
     else:
         return "Unknown pageType"
 
