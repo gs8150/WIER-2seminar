@@ -12,7 +12,7 @@ neweggA = 'data/newegg.com/Desktop Processors and CPUs - Newegg.com.htm'
 neweggB = 'data/newegg.com/Desktop Graphics Cards, Video Cards for PC - Newegg.com.htm'
 
 # to change other page, change this variable only
-pageSource = neweggA  # rvtsloA, rtvsloB, overstockA, overstockB, customA, customB
+pageSource = rtvsloB  # rtvsloA, rtvsloB, overstockA, overstockB, neweggA, neweggB
 # -------------------------------------------------
 
 try:

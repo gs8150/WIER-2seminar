@@ -61,7 +61,7 @@ def XPathExtraction(input, pageType):
         data[id] = item
         id += 1
 
-    elif pageType == 2:                       # custom
+    elif pageType == 2:                       # newegg.com
         objects = tree.xpath('//div[@class="item-container"]')
         for obj in objects:
             dataInfo = obj.xpath('div[@class="item-info"]')
