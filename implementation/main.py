@@ -42,7 +42,7 @@ output_regex = regularExpressionExtraction(HTMLsource, pageType)
 output_XPath = XPathExtraction(HTMLsource, pageType)
 
 # extract data using RoadRunner
-output_roadRunner = RoadRunnerExtraction(HTMLsource, pageType)
+output_roadRunner = RoadRunnerExtraction(neweggA, neweggB, pageType)
 
 # done
 print(output_regex)
