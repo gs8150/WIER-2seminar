@@ -16,7 +16,9 @@ def regularExpressionExtraction(input, pageType):
                 r'<div class=\"author-name\">(.*)<\/div>[\s\S]+\"publish-meta\">[\n\W]+(.*)<br\/>[\s\S]+<\/div>[\n]*' \
                 r'<\/figure>[\n]*<p([\s\S]*.*)<div class=\"gallery\">'
     elif pageType == 2:             # newegg.com regex extraction
-        regex = r'(?:rating-(\d).*(?:\n.*){,4})?Details\">(?:<i.*<\/i>)?((?:.*\n){,5})<!--p.*\n.*>(?:.*<\/i>)?(.*)<\/p>(?:\n.*){,13}s\">(\n.*)?(?:\n.*){,9}(\$).*>([0-9]?\,?[0-9]{2,}).*>(\.\d\d)(?:[^(]*\(([\d]{1,}.*)\).*)?(?:(?:\n.*){,9}\n)?(?:.*>([0-9]{,2}\%))?'
+        regex = r'<div class=\"item-container\">(?:\n.*){,15}(?:rating-(\d).*(?:\n.*){,4})?Details\">(?:<i.*<\/i>)?' \
+                r'((?:.*\n){,5})<!--p.*\n.*>(?:.*<\/i>)?(.*)<\/p>(?:\n.*){,13}s\">(\n.*)?(?:\n.*){,9}(\$).*>' \
+                r'([0-9]?\,?[0-9]{2,}).*>(\.\d\d)(?:[^(]*\(([\d]{1,}.*)\).*)?(?:(?:\n.*){,9}\n)?(?:.*>([0-9]{,2}\%))?'
     else:
         return "No regex specified!"
 
