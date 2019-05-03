@@ -1,6 +1,6 @@
-from RoadRunnerExtraction import RoadRunnerExtraction
-from XPathExtraction import XPathExtraction
-from regularExpressionExtraction import regularExpressionExtraction
+from methods.RoadRunnerExtraction import RoadRunnerExtraction
+from methods.XPathExtraction import XPathExtraction
+from methods.regularExpressionExtraction import regularExpressionExtraction
 from bs4 import BeautifulSoup
 
 
@@ -12,7 +12,7 @@ neweggA = 'data/newegg.com/Desktop Processors and CPUs - Newegg.com.htm'
 neweggB = 'data/newegg.com/Desktop Graphics Cards, Video Cards for PC - Newegg.com.htm'
 
 # to change other page, change this variable only
-pageSource = neweggB  # rtvsloA, rtvsloB, overstockA, overstockB, neweggA, neweggB
+pageSource = neweggA  # rtvsloA, rtvsloB, overstockA, overstockB, neweggA, neweggB
 # -------------------------------------------------
 
 try:

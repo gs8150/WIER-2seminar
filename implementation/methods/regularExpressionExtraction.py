@@ -16,7 +16,7 @@ def regularExpressionExtraction(input, pageType):
                 r'<div class=\"author-name\">(.*)<\/div>[\s\S]+\"publish-meta\">[\n\W]+(.*)<br\/>[\s\S]+<\/div>[\n]*' \
                 r'<\/figure>[\n]*<p([\s\S]*.*)<div class=\"gallery\">'
     elif pageType == 2:             # newegg.com regex extraction
-        regex = r''
+        regex = r'(?:rating-(\d).*(?:\n.*){,4})?Details\">(?:<i.*<\/i>)?((?:.*\n){,5})<!--p.*\n.*>(?:.*<\/i>)?(.*)<\/p>(?:\n.*){,13}s\">(\n.*)?(?:\n.*){,9}(\$).*>([0-9]?\,?[0-9]{2,}).*>(\.\d\d)(?:[^(]*\(([\d]{1,}.*)\).*)?(?:(?:\n.*){,9}\n)?(?:.*>([0-9]{,2}\%))?'
     else:
         return "No regex specified!"
 
@@ -56,8 +56,25 @@ def regularExpressionExtraction(input, pageType):
             item['content'] = str(lxml.html.fromstring(content).text_content()).replace('>', '')\
                                                                                .replace('class=\"Body\"', '')
 
-        elif pageType == 2:                       # newegg
-            return "To be implemented"
+        elif pageType == 2:                     # newegg
+
+            rating = match.group(1)             # rating
+            title = match.group(2)              # title
+            promo = match.group(3)              # promo
+            oldPrice = match.group(4)           # oldPrice
+            price = str(match.group(5)) + \
+                    str(match.group(6)) + \
+                    str(match.group(7))              # price
+            offers = match.group(8)             # offers
+            save = match.group(9)               # save
+
+            item['Rating'] = rating
+            item['Title'] = title.replace('</a>\n', '').replace('</i>', '')
+            item['Promo'] = promo
+            item['OldPrice'] = oldPrice.replace('</li>', '').replace('\n', '').replace(' ', '')
+            item['Price'] = price
+            item['Offers'] = offers
+            item['Save'] = "" if save is None else save
         else:
             return "Unknown pageType"
 
