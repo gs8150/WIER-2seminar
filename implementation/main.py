@@ -45,6 +45,6 @@ output_XPath = XPathExtraction(HTMLsource, pageType)
 output_roadRunner = RoadRunnerExtraction(neweggA, neweggB, pageType)
 
 # done
-#print(output_regex)
+print(output_regex)
 print(output_XPath)
 ##print(output_roadRunner)
