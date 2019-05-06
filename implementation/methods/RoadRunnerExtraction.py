@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 
 def RoadRunnerExtraction(page1, page2, pageType):
-    htmlObject = open(page1, 'r', encoding='utf-8') if pageType == 1 or 2 else open(page1, 'r')
+    htmlObject = open(page1, 'rb') if pageType == 1 or 2 else open(page1, 'r')
     html1 = htmlObject.read()
 
-    htmlObject = open(page2, 'r', encoding='utf-8') if pageType == 1 or 2 else open(page2, 'r')
+    htmlObject = open(page2, 'rb') if pageType == 1 or 2 else open(page2, 'r')
     html2 = htmlObject.read()
 
 

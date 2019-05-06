@@ -28,7 +28,7 @@ try:
         exit(1)
 
     # obtain HTML code
-    htmlObject = open(pageSource, 'r', encoding='utf-8') if pageType == 1 or 2 else open(pageSource, 'r')
+    htmlObject = open(pageSource, 'rb') if pageType == 1 or 2 else open(pageSource, 'r')
     page = htmlObject.read()
     HTMLsource = str(BeautifulSoup(page, 'html.parser'))
 except Exception as error:
@@ -45,6 +45,6 @@ output_XPath = XPathExtraction(HTMLsource, pageType)
 output_roadRunner = RoadRunnerExtraction(neweggA, neweggB, pageType)
 
 # done
-print(output_regex)
+#print(output_regex)
 print(output_XPath)
 ##print(output_roadRunner)
