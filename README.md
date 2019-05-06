@@ -12,11 +12,13 @@ Podatki strani se nahajajo na lokaciji implementation/data
 
 There are three types of pages. Every type has two pages. Page A and page B
 
-overstockA = 'data/overstock.com/jewelry01.html'
+overstockA = 'data/overstock.com/jewelry01.html' <br />
 overstockB = 'data/overstock.com/jewelry02.html'
-rtvsloA = 'data/rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html'
+
+rtvsloA = 'data/rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html' <br />
 rtvsloB = 'data/rtvslo.si/Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html'
-neweggA = 'data/newegg.com/Desktop Processors and CPUs - Newegg.com.htm'
+
+neweggA = 'data/newegg.com/Desktop Processors and CPUs - Newegg.com.htm'<br />
 neweggB = 'data/newegg.com/Desktop Graphics Cards, Video Cards for PC - Newegg.com.htm'
 
 
